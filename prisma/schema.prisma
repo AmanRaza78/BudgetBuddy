@@ -20,6 +20,7 @@ model User {
   sessions      Session[] 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  transaction Transaction[]
 }
  
 model Account {
@@ -63,3 +64,14 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+
+model Transaction{
+  id String @id @default(uuid())
+  text String
+  amount Float
+  userId String
+  user User @relation(fields: [userId], references: [id]) 
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
