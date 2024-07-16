@@ -26,10 +26,10 @@ export default function AddTranscationForm() {
     }
   };
   return (
-    <Card className="w-[350px]">
+    <Card>
       <CardHeader>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+        <CardTitle>Add Transcation</CardTitle>
+        <CardDescription>Note - Amount (negative - expense, positive - income).</CardDescription>
       </CardHeader>
       <CardContent>
         <form ref={formRef} action={clientAction}>
@@ -40,7 +40,6 @@ export default function AddTranscationForm() {
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="amount">Amount</Label>
-              Amount <br /> (negative - expense, positive - income)
               <Input
                 id="amount"
                 placeholder="Enter Amount"

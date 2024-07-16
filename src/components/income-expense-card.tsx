@@ -1,5 +1,5 @@
 import { addCommas } from "@/lib/converter";
-import { Card } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 interface IncomeExponseProps {
   amount: number | undefined;
@@ -14,19 +14,25 @@ export default function IncomeExpenseCard({
 
   return (
     <>
-      {type === 'income' ? (
-        <Card className="w-fit">
-          <h4>Income</h4>
-          <p className="text-green-400">
-            ${formattedAmount}
-          </p>
+      {type === "income" ? (
+        <Card className="w-[250px] h-fit">
+          <CardHeader>
+            <CardTitle>Income</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <h4>Expense</h4>
+            <p className="text-green-400">${formattedAmount}</p>
+          </CardContent>
         </Card>
       ) : (
-        <Card className="w-fit">
-          <h4>Expense</h4>
-          <p className="text-red-400">
-            ${formattedAmount}
-          </p>
+        <Card className="w-[250px] h-fit">
+          <CardHeader>
+            <CardTitle>Expense</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <h4>Expense</h4>
+            <p className="text-red-400">${formattedAmount}</p>
+          </CardContent>
         </Card>
       )}
     </>

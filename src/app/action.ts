@@ -41,6 +41,7 @@ export async function addTranscations(
         userId: session.user.id,
       },
     });
+    revalidatePath('/')
     return { data: transcationData };
   } catch (error) {
     return { error: "Transaction not added" };

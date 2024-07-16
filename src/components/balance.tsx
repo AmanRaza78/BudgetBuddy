@@ -5,7 +5,7 @@ import { addCommas } from "@/lib/converter";
 export default async function Balance() {
   const {balance} = await getUserBalance();
   return (
-    <Card className="w-fit">
+    <Card>
       <CardHeader>
         <CardTitle>Balance</CardTitle>
       </CardHeader>
