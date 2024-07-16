@@ -14,7 +14,7 @@ interface TransactionResult {
     error?: string;
   }
 
-export default async function addTranscations(formData:FormData): Promise<TransactionResult>{
+export async function addTranscations(formData:FormData): Promise<TransactionResult>{
     const textValue = formData.get('text')
     const amountValue = formData.get('amount')
 
@@ -48,3 +48,30 @@ export default async function addTranscations(formData:FormData): Promise<Transa
     }
 
 }
+
+export async function getUserBalance(): Promise<{
+    balance?: number;
+    error?: string;
+  }> {
+    const session = await auth()
+
+    if(!session?.user?.id){
+         return { error: 'User not found' };
+    }
+  
+    try {
+      const transactions = await prisma.transaction.findMany({
+        where: { userId: session.user.id },
+      });
+  
+      const balance = transactions.reduce(
+        (sum, transaction) => sum + transaction.amount,
+        0
+      );
+  
+      return { balance };
+    } catch (error) {
+      return { error: 'Database error' };
+    }
+  }
+  

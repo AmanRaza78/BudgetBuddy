@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import addTranscations from "@/app/action";
+import {addTranscations} from "@/app/action";
 import { toast } from "sonner";
 import { useRef } from "react";
 import SubmitButton from "./submit-button";
