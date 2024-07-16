@@ -105,3 +105,61 @@ export async function getIncomeExpense(): Promise<{
     return { error: "Database error" };
   }
 }
+
+
+export interface Transaction {
+  id: string;
+  text: string;
+  amount: number;
+  userId: string;
+  createdAt: Date;
+}
+
+export async function getTransactions(): Promise<{
+  transactions?: Transaction[];
+  error?: string;
+}> {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    return { error: "User not found" };
+  }
+
+  try {
+    const transactions = await prisma.transaction.findMany({
+      where: { userId: session.user.id },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return { transactions };
+  } catch (error) {
+    return { error: 'Database error' };
+  }
+}
+
+export async function deleteTransaction(transactionId: string): Promise<{
+  message?: string;
+  error?: string;
+}> {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    return { error: "User not found" };
+  }
+
+  try {
+    await prisma.transaction.delete({
+      where: {
+        id: transactionId,
+        userId: session.user.id,
+      },
+    });
+
+    revalidatePath('/');
+    return { message: 'Transaction deleted' };
+  } catch (error) {
+    return { error: 'Database error' };
+  }
+}
